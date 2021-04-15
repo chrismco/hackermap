@@ -9,6 +9,7 @@ export default class Navigation extends Component {
       locations: this.props.locations,
     };
   }
+
   // Used for rendering
   getClasses(ctx, index) {
     let classes = `material-icons ${ctx}`;
@@ -28,26 +29,27 @@ export default class Navigation extends Component {
   // Used for rendering
 
   isLast(index) {
-    return index === this.props.locations.length - 1;
+    return index === this.state.locations.length - 1;
   }
+
   isFirst(index) {
     return index === 0;
   }
 
-  moveUp(arr, index) {
+  moveUp(index) {
     if (index > 0) {
-      this.swapIndex(arr, index, index - 1);
+      this.swapIndex(index, index - 1);
     }
   }
 
-  moveDown(arr, index) {
-    if (index < arr.length - 1) {
-      this.swapIndex(arr, index, index + 1);
+  moveDown(index) {
+    if (index < this.state.locations.length - 1) {
+      this.swapIndex(index, index + 1);
     }
   }
 
-  swapIndex(arr, item1, item2) {
-    let locations = arr;
+  swapIndex(item1, item2) {
+    let locations = [...this.state.locations];
 
     let tmpProp = locations[item1];
     locations[item1] = locations[item2];
@@ -58,10 +60,11 @@ export default class Navigation extends Component {
 
   showButtonShow(index) {
     let button;
+    const { locations } = this.state;
     if (this.isFirst(index)) {
       button = (
         <button
-          onClick={() => this.moveDown(this.props.locations, index)}
+          onClick={() => this.moveDown(index)}
           className="icon-only small mx-0"
           data-testid="down-button"
         >
@@ -71,7 +74,7 @@ export default class Navigation extends Component {
     } else if (this.isLast(index)) {
       button = (
         <button
-          onClick={() => this.moveUp(this.props.locations, index)}
+          onClick={() => this.moveUp(index)}
           className="icon-only small mx-0"
           data-testid="up-button"
         >
@@ -82,14 +85,15 @@ export default class Navigation extends Component {
       button = (
         <React.Fragment>
           <button
-            onClick={() => this.moveUp(this.props.locations, index)}
+            onClick={() => this.moveUp(index)}
             className="icon-only small mx-0"
             data-testid="up-button"
           >
             <i className="material-icons">arrow_upward</i>
           </button>
+
           <button
-            onClick={() => this.moveDown(this.props.locations, index)}
+            onClick={() => this.moveDown(index)}
             className="icon-only small mx-0"
             data-testid="down-button"
           >
@@ -103,7 +107,7 @@ export default class Navigation extends Component {
   }
 
   render() {
-    const { locations } = this.props;
+    const { locations } = this.state;
 
     return (
       <div className="layout-row align-items-center justify-content-center navigation-screen">
