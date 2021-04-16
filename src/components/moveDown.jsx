@@ -1,9 +1,10 @@
-import { React } from "react";
+import  React  from "react";
 
-const MoveDownButton = ({ itemIndex, items }) => {
+const MoveDownButton = ({ itemIndex, onClick}) => {
+
   return (
     <button
-      //   onClick={() => this.downUp(index)}
+      onClick={() => onClick(itemIndex)}
       className="icon-only small mx-0"
       data-testid="down-button"
     >
