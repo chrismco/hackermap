@@ -45,17 +45,17 @@ export default class Navigation extends Component {
 
   showButtonShow(index) {
     if (this.isFirst(index)) {
-      return   <MoveDownButton itemIndex={index} onClick={() => this.setState({locations: moveDown(this.state.locations, index)})} />
+      return   <MoveDownButton  onClick={() => this.setState({locations: moveDown(this.state.locations, index)})} />
     } else if (this.isLast(index)) {
       return  (
-        <MoveUpButton itemIndex={index} onClick={() => this.setState({locations: moveUp(this.state.locations, index)})} />
+        <MoveUpButton  onClick={() => this.setState({locations: moveUp(this.state.locations, index)})} />
       );
     }
 
      return  (
         <React.Fragment>
-          <MoveUpButton itemIndex={index} onClick={() => this.setState({locations: moveUp(this.state.locations, index)})} />
-          <MoveDownButton itemIndex={index} onClick={() => this.setState({locations: moveDown(this.state.locations, index)})} />
+          <MoveUpButton  onClick={() => this.setState({locations: moveUp(this.state.locations, index)})} />
+          <MoveDownButton  onClick={() => this.setState({locations: moveDown(this.state.locations, index)})} />
         </React.Fragment>
       );
 

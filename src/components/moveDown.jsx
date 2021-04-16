@@ -1,10 +1,10 @@
 import  React  from "react";
 
-const MoveDownButton = ({ itemIndex, onClick}) => {
+const MoveDownButton = ({onClick}) => {
 
   return (
     <button
-      onClick={() => onClick(itemIndex)}
+      onClick={() => onClick()}
       className="icon-only small mx-0"
       data-testid="down-button"
     >
