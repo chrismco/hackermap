@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import  MoveDownButton from "./moveDown";
 import  MoveUpButton from "./moveUp";
 import "./Navigation.css";
+import {moveUp, moveDown} from '../common/swap';
 
 export default class Navigation extends Component {
   constructor(props) {
@@ -9,8 +10,7 @@ export default class Navigation extends Component {
     this.state = {
       locations: this.props.locations,
     };
-    this.handleMoveDown = this.handleMoveDown.bind(this);
-    this.handleMoveUp = this.handleMoveUp.bind(this);
+
   }
 
   componentDidUpdate(currentProps, prevProps){
@@ -43,41 +43,19 @@ export default class Navigation extends Component {
     return index === 0;
   }
 
-  handleMoveUp(index) {
-    if (index > 0) {
-      this.swapIndex(index, index - 1);
-    }
-  }
-
-  handleMoveDown(index) {
-    if (index < this.state.locations.length - 1) {
-      this.swapIndex(index, index + 1);
-    }
-  }
-
-  swapIndex(item1, item2) {
-    let locations = [...this.state.locations];
-
-    let tmpProp = locations[item1];
-    locations[item1] = locations[item2];
-    locations[item2] = tmpProp;
-
-    this.setState({ locations });
-  }
-
   showButtonShow(index) {
     if (this.isFirst(index)) {
-      return   <MoveDownButton itemIndex={index} onClick={ this.handleMoveDown} />
+      return   <MoveDownButton itemIndex={index} onClick={() => this.setState({locations: moveDown(this.state.locations, index)})} />
     } else if (this.isLast(index)) {
       return  (
-        <MoveUpButton itemIndex={index} onClick={ this.handleMoveUp} />
+        <MoveUpButton itemIndex={index} onClick={() => this.setState({locations: moveUp(this.state.locations, index)})} />
       );
     }
 
      return  (
         <React.Fragment>
-          <MoveUpButton itemIndex={index} onClick={ this.handleMoveUp} />
-          <MoveDownButton itemIndex={index} onClick={ this.handleMoveDown} />
+          <MoveUpButton itemIndex={index} onClick={() => this.setState({locations: moveUp(this.state.locations, index)})} />
+          <MoveDownButton itemIndex={index} onClick={() => this.setState({locations: moveDown(this.state.locations, index)})} />
         </React.Fragment>
       );
 
